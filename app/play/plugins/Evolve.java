@@ -472,6 +472,7 @@ public class Evolve extends PlayPlugin {
     static void execute(String sql) throws SQLException {
         final String H2_PREFIX = "!H2!";
         final String MYSQL_PREFIX = "!MYSQL!";
+        final String POSTGRESQL_PREFIX = "!POSTGRESQL!";
         if (sql.startsWith(H2_PREFIX)) {
             if (!isDriverH2()) {
                 return;
@@ -483,6 +484,12 @@ public class Evolve extends PlayPlugin {
                 return;
             }
             sql = sql.substring(MYSQL_PREFIX.length());
+        }
+        if (sql.startsWith(POSTGRESQL_PREFIX)) {
+            if (!isDriverPostgresql()) {
+                return;
+            }
+            sql = sql.substring(POSTGRESQL_PREFIX.length());
         }
 
         Connection connection = null;
@@ -572,6 +579,11 @@ public class Evolve extends PlayPlugin {
     public static boolean isDriverMysql() {
         String driver = getDriver();
         return driver.contains("mysql") || driver.contains("mariadb");
+    }
+
+    public static boolean isDriverPostgresql() {
+        String driver = getDriver();
+        return driver.contains("postgresql");
     }
 
     public static String getDriver() {
