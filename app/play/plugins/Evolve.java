@@ -1,5 +1,6 @@
 package play.plugins;
 
+import com.google.common.base.Strings;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.Play;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import java.util.function.Function;
 
 /**
  * This Plugin replaces the Evolutions plugin of Play.
@@ -30,7 +32,20 @@ import java.util.Stack;
  * @author jtremeaux
  */
 public class Evolve extends PlayPlugin {
+    private static Function<String, String> onExecuteStatement;
 
+    @Override
+    public void onConfigurationRead() {
+        // Instantiate a custom CMIS session impl
+        String onExecuteStatement = Play.configuration.getProperty("evolve.onExecuteStatement");
+        if (!Strings.isNullOrEmpty(onExecuteStatement)) {
+            try {
+                this.onExecuteStatement = (Function<String, String>) (Class.forName(onExecuteStatement).newInstance());
+            } catch (Exception e) {
+                throw new RuntimeException("Cannot instantiate evolve.onExecuteStatement=" + onExecuteStatement, e);
+            }
+        }
+    }
 
     public static void main(String[] args) throws SQLException {
 
@@ -494,6 +509,9 @@ public class Evolve extends PlayPlugin {
 
         Connection connection = null;
         try {
+            if (onExecuteStatement != null) {
+                sql = onExecuteStatement.apply(sql);
+            }
             connection = getNewConnection();
             connection.createStatement().execute(sql);
         } catch (SQLException e) {
