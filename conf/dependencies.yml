@@ -1,4 +1,4 @@
-self: play -> evolve 0.3
+self: play -> evolve 0.3.1
 
 require:
     - play

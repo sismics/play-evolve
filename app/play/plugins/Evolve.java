@@ -1,6 +1,5 @@
 package play.plugins;
 
-import com.google.common.base.Strings;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.Play;
@@ -36,9 +35,8 @@ public class Evolve extends PlayPlugin {
 
     @Override
     public void onConfigurationRead() {
-        // Instantiate a custom CMIS session impl
         String onExecuteStatement = Play.configuration.getProperty("evolve.onExecuteStatement");
-        if (!Strings.isNullOrEmpty(onExecuteStatement)) {
+        if (onExecuteStatement != null) {
             try {
                 this.onExecuteStatement = (Function<String, String>) (Class.forName(onExecuteStatement).newInstance());
             } catch (Exception e) {
