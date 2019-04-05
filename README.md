@@ -15,12 +15,12 @@ Same features as the evolutions Play plugin, with the following modifications:
 
 ```
 require:
-    - evolve -> evolve 0.3
+    - evolve -> evolve 1.0.0
 
 repositories:
-    - sismics:
-        type:       http
-        artifact:   "http://release.sismics.com/repo/play/[module]-[revision].zip"
+    - sismicsNexusRaw:
+        type: http
+        artifact: "https://nexus.sismics.com/repository/sismics/[module]-[revision].zip"
         contains:
             - evolve -> *
 

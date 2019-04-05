@@ -1,4 +1,6 @@
 ## Change Log
+### Version 1.0.0 (2019-04-05)
+- Automate release
 ### Version 0.3.1 (2017-10-03)
 - Add configuration property *evolve.onExecuteStatement* to configure *onExecuteStatement*.
 ### Version 0.3 (2017-02-20)
