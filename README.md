@@ -1,3 +1,6 @@
+[![GitHub release](https://img.shields.io/github/release/sismics/play-evolve.svg?style=flat-square)](https://github.com/sismics/play-evolve/releases/latest)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # play-evolve plugin
 
 This plugin provides a way to track and organize your database schema evolutions in Play! Framework 1 applications.
@@ -15,7 +18,7 @@ Same features as the evolutions Play plugin, with the following modifications:
 
 ```
 require:
-    - evolve -> evolve 1.0.0
+    - evolve -> evolve 1.1.0
 
 repositories:
     - sismicsNexusRaw:
